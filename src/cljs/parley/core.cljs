@@ -9,13 +9,16 @@
   (atom {:users
          {:conner {:handle "conner"
                    :name "Conner"
-                   :bio "Pwner Extraordinaire"}
+                   :bio "Pwner Extraordinaire"
+                   :avatar "https://pbs.twimg.com/profile_images/472114160130473984/Mn3hcq5I_400x400.jpeg"}
           :marco {:handle "marco"
                   :name "Marco"
-                  :bio "Climbs all the rocks"}
+                  :bio "Climbs all the rocks"
+                  :avatar "https://avatars0.githubusercontent.com/u/594035?v=2&s=460"}
           :brad {:handle "brad"
                  :name "Brad"
-                 :bio "Weird city burn"}}
+                 :bio "Weird city burn"
+                 :avatar "http://primg.city/query-resize?url=http%3A%2F%2Fs3.amazonaws.com%2Fprismatic-profiles%2Fprimary-image-837232295.jpeg&width=176&height=176"}}
 
          :questions
          {:is-there-an-omnipotent-god
@@ -30,18 +33,18 @@
              :text "No, pwned!"}]}}}))
 
 (defcomponentk user+
-  [[:data handle name bio]]
+  [[:data handle name bio avatar]]
   (render [_]
     (dom/div
      {:class "user"}
      (dom/a
-      {:class "user-avatar"
-       :style {:background-image (str "http://robohash.org/" handle ".png")}
+      {:class "avatar"
+       :style {:background-image (str "url(" avatar ")")}
        :href "#"})
      (dom/a
-      {:class "user-handle"
+      {:class "user-name"
        :href "#"}
-      handle)
+      name)
      (dom/div {:class "user-bio"} bio))))
 
 (defcomponentk response+
@@ -57,8 +60,10 @@
   (render [_]
     (dom/div
      {:class "question"}
-     (dom/h1 {:class "question-text"} text)
-     (dom/p {:class "question-description"} description)
+     (dom/div
+      {:class "question-header"}
+      (dom/h1 {:class "question-text"} text)
+      (dom/p {:class "question-description"} description))
 
      (dom/ol
       {:class "question-responses"}
