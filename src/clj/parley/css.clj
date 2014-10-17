@@ -1,48 +1,80 @@
 (ns parley.css
   (:require
    [garden.def :refer [defstyles]]
-   [garden.units :refer [px percent]]))
+   [garden.units :refer [px em percent]]))
 
 (defstyles screen
   [:* {:box-sizing "border-box"}]
 
   [:body
-   {:font {:size (px 16)
+   {:font {:size (px 18)
            :family 'Helvetica}
+    :line-height 1.4
     :color :#222
-    :background :#eee
+    :background :#ddd
     :margin 0}]
 
-  [:h1 :h2 :h3 :h4 :p
+  [:a
+   {:text-decoration "none"}]
+
+  [:h1 :h2 :h3 :h4
    {:margin 0}]
+
+  [:p
+   {:margin [[(em 0.5) 0]]}]
 
   [:#container
    {:background :#fff
     :max-width (px 800)
-    :margin [[0 "auto"]]
-    :padding (px 32)}]
+    :margin [[(px 32) "auto"]]}]
 
   [:.question-header
-   {:margin {:bottom (px 32)}}]
+   {:padding [[(px 16) (px 21)]]
+    :border {:bottom [[(px 10) :solid :#eee]]}}]
+
+  [:.question-text
+   {:font {:size (em 2)}}]
+
+  [:.question-description
+   {:margin 0
+    :color :#666}]
 
   [:.question-responses
    {:list-style "none"
     :margin 0
     :padding 0}]
 
-  [:.response
-   {:margin {:bottom (px 16)}}]
-
   [:.avatar
    {:display "inline-block"
-    :width (px 32)
-    :height (px 32)
-    :background {:size "cover"}
-    :border-radius (px 3)}]
+    :background {:size "cover"}}]
 
-  [:.response
-   [:.avatar
-    {:margin {:right (px 8)}}]
-   ]
+  (let [avatar-size 48]
+    [:.response
+     {:position "relative"
+      :padding [[(px 16) (px 21)]]
+      :border {:bottom [[(px 1) :solid :#eee]]}}
+
+     [:.avatar
+      {:position "absolute"
+       :width (px avatar-size)
+       :height (px avatar-size)
+       :margin {:top (px 4)}
+       :border-radius (px 3)}]
+
+     [:.response-body
+      {:margin {:left (px (+ avatar-size 16))}}]])
+
+  [:.response-text
+   {:margin 0}]
+
+  [:.response-answer
+   {:font {:weight 600}}]
+
+  [:.separator
+   {:color :#aaa}]
+
+  [:.user-name
+   {:font {:weight 600}
+    :color :#222}]
 
   )
